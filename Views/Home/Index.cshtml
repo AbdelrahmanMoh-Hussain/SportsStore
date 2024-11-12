@@ -9,9 +9,11 @@
     <a asp-action="index" asp-route-productPage="2">2</a>
     <a asp-action="index" asp-route-productPage="3">3</a>
 </div> *@
-<div page-model="@Model?.PagingInfo" page-action="Index"
+<div page-model="@Model?.PagingInfo"
+     page-action="Index"
      page-classes-enabled="true"
      page-class="btn"
      page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary" class="btn-group pull-right m-1"
-     page-url-category="@Model?.CurrentCategory!"></div>
+     page-class-selected="btn-primary"
+     page-url-category="@Model?.CurrentCategory!"
+     class="btn-group pull-right m-1"></div>
