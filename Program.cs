@@ -8,9 +8,11 @@ builder.Services.AddDbContext<StoreDbContext>(op =>
     op.UseSqlServer(builder.Configuration.GetConnectionString("SportsStoreConnection"));
 });
 builder.Services.AddScoped<IStoreRepository, EfStoreRepository>();
+builder.Services.AddScoped<IOrderRepository, EfOrderRepository>();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddServerSideBlazor();
 
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -35,6 +37,8 @@ app.MapControllerRoute("pagination", "Products/Page{productPage}",
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToFile("/admin/{*catchall}", "Admin/Index");
 
 SeedData.EnsurePopulated(app);
 
