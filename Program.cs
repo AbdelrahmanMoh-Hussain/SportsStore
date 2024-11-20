@@ -25,8 +25,17 @@ builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
+if (app.Environment.IsProduction())
+{
+    app.UseExceptionHandler("/error");
+}
 
-//app.MapGet("/", () => "Hello World!");
+app.UseRequestLocalization(opts =>
+{
+    opts.AddSupportedCultures("en-US")
+        .AddSupportedUICultures("en-US")
+        .SetDefaultCulture("en-US");
+});
 app.UseStaticFiles();
 app.UseSession();
 app.UseAuthentication();
